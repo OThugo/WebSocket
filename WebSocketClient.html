@@ -1,71 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title>WebSockets</title>
+	<meta charset="utf-8" />
+	<title>WebSockets</title>
 </head>
 <script>
-    var webSocket;
-    function connect()
-    {
-        try
-        {
-            var readyState = new Array("正在连接","已建立连接","正在关闭连接","已关闭连接");
+	var webSocket;
+	function connect()
+	{
+		try
+		{
+			var readyState = new Array("正在连接","已建立连接","正在关闭连接","已关闭连接");
             //var host = "ws://localhost:10";
-            var host = "ws://172.26.166.83:10";//服务器的ip地址
+            var host = "ws://192.168.5.61:10";
             webSocket = new WebSocket(host);
             var message = document.getElementById("message");
             message.innerHTML +="<p>Socket状态：" + readyState[webSocket.readyState] + "</p>";
             webSocket.onopen = function()
             {
-                message.innerHTML += "<p>Socket状态：" + readyState[webSocket.readyState] + "</p>";
+            	message.innerHTML += "<p>Socket状态：" + readyState[webSocket.readyState] + "</p>";
             }
             webSocket.onmessage = function(msg)
             {
-                message.innerHTML +="<p>接收信息：" + msg.data + "</p>";
+            	message.innerHTML +="<p>接收信息：" + msg.data + "</p>";
             }
-            webSocket.onclose=function()
+           /* webSocket.onclose=function()
             {
                 message.innerHTML +="<p>Socket状态：" + readyState[webSocket.readyState] + "</p>";
-            }
+            }*/
         }
         catch(exception)
         {
-            message.innerHTML += "<p>有错误发生</p>";
+        	message.innerHTML += "<p>有错误发生</p>";
         }
     }
     function send()
     {
-        var text = document.getElementById("text").value;
-        var message = document.getElementById("message");
-        if(text == "")
-        {
-            message.innerHTML += "<p>请输入一些文字</p>";
-            return ;
-        }
-        try
-        {
-            webSocket.send(text);
-            message.innerHTML += "<p>发送数据：" +text + "</p>";
-        }
-        catch(exception)
-        {
-            message.innerHTML += "<p>发送数据出错</p>";
-        }
-        document.getElementById("text").value="";
+    	var text = document.getElementById("text").value;
+    	var message = document.getElementById("message");
+    	if(text == "")
+    	{
+    		message.innerHTML += "<p>请输入一些文字</p>";
+    		return ;
+    	}
+    	try
+    	{
+    		webSocket.send(text);
+    		message.innerHTML += "<p>发送数据：" +text + "</p>";
+    	}
+    	catch(exception)
+    	{
+    		message.innerHTML += "<p>发送数据出错</p>";
+    	}
+    	document.getElementById("text").value="";
     }
     function disconnect()
     {
-        webSocket.close();
+    	webSocket.close();
     }
 </script>
 <body>
-    <h1>WebSocket</h1>
-    <div id="message"></div>
-    <p>请输入一些文字</p>
-    <input id="text" type="text">
-    <button id="connect" onClick="connect();">建立连接</button>
-    <button id="send" hidden="true" onClick="send();">发送数据</button>
-    <button id="disconnect" onClick="disconnect();">断开连接</button>
+	<h1>WebSocket</h1>
+	<div id="message"></div>
+	<p hidden="true">请输入一些文字</p>
+	<input id="text" type="text">
+	<button id="connect" onClick="connect();">建立连接</button>
+	<button id="send" onClick="send();">发送数据</button>
+	<button id="disconnect" onClick="disconnect();">断开连接</button>
 </body>
 </html>

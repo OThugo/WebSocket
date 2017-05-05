@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace WebSocket
 {
@@ -36,20 +37,33 @@ namespace WebSocket
                 //length = sc.Receive(buffer);//接受客户端信息
                 //string clientMsg = AnalyticData(buffer, length);
                 //Console.WriteLine("接受到客户端数据：" + clientMsg);
+                Thread thread = new Thread(() => ThreadMainWithParameters(length, sc, buffer));
+                thread.Start();
 
                 //发送数据
-                string e = Console.ReadLine();
-                string sendMsg = "您好，" + e;
-                Console.WriteLine("发送数据：“" + e + "” 至客户端....");
-                sc.Send(PackData(sendMsg));
-
-                Console.WriteLine("演示Over!");
-                Console.ReadLine();
+                do
+                {
+                    string e = Console.ReadLine();
+                    string sendMsg = e;
+                    Console.WriteLine("发送数据：“" + e + "” 至客户端....");
+                    sc.Send(PackData(sendMsg));
+                } while (true);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
+        }
+
+        //多线程接收信息
+        private static void ThreadMainWithParameters(int length, Socket sc, byte[] buffer)
+        {
+            do
+            {
+                length = sc.Receive(buffer);//接受客户端信息
+                string clientMsg = AnalyticData(buffer, length);
+                Console.WriteLine("接受到客户端数据：" + clientMsg);
+            } while (true);
         }
 
         /// <summary>
