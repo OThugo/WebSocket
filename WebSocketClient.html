@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script src=http://code.jquery.com/jquery-latest.js></script>
 	<meta charset="utf-8" />
 	<title>WebSockets</title>
 </head>
@@ -11,8 +12,7 @@
 		try
 		{
 			var readyState = new Array("正在连接","已建立连接","正在关闭连接","已关闭连接");
-            //var host = "ws://localhost:10";
-            var host = "ws://192.168.5.61:10";
+			var host = "ws://localhost:10";
             webSocket = new WebSocket(host);
             var message = document.getElementById("message");
             message.innerHTML +="<p>Socket状态：" + readyState[webSocket.readyState] + "</p>";
@@ -59,13 +59,28 @@
     	webSocket.close();
     }
 </script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("div").delegate("p","click",function(){
+			$(this).slideToggle();
+		});
+		$("input").keydown(function(event){ 
+			if (event.which==13) {
+				send();
+			};
+		});
+	});
+</script>
 <body>
-	<h1>WebSocket</h1>
-	<div id="message"></div>
+	<!-- <h1>WebSocket</h1> -->
+	<div id="message">
+		<p>点击文字以收起文本</p>
+	</div>
 	<p hidden="true">请输入一些文字</p>
 	<input id="text" type="text">
+	<br/><br/>
+	<button hidden="true" id="send" onClick="send();">发送数据</button>
 	<button id="connect" onClick="connect();">建立连接</button>
-	<button id="send" onClick="send();">发送数据</button>
 	<button id="disconnect" onClick="disconnect();">断开连接</button>
 </body>
 </html>

@@ -45,7 +45,7 @@ namespace WebSocket
                 {
                     string e = Console.ReadLine();
                     string sendMsg = e;
-                    Console.WriteLine("发送数据：“" + e + "” 至客户端....");
+                    //Console.WriteLine("发送数据：“" + e + "” 至客户端....");
                     sc.Send(PackData(sendMsg));
                 } while (true);
             }

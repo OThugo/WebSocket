@@ -2,3 +2,4 @@ E:\MyAsp.netProgram\WebSocket\WebSocket\bin\Debug\WebSocket.exe
 E:\MyAsp.netProgram\WebSocket\WebSocket\bin\Debug\WebSocket.pdb
 E:\MyAsp.netProgram\WebSocket\WebSocket\obj\x86\Debug\WebSocket.exe
 E:\MyAsp.netProgram\WebSocket\WebSocket\obj\x86\Debug\WebSocket.pdb
+E:\MyAsp.netProgram\WebSocket\WebSocket\obj\x86\Debug\WebSocket.csprojResolveAssemblyReference.cache
